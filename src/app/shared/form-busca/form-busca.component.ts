@@ -12,9 +12,5 @@ export class FormBuscaComponent {
 
   constructor(public dialog: MatDialog, public formBuscaService: FormBuscaService) {}
 
-  openDialog() {
-    this.dialog.open(ModalComponent, {
-      width: '50%'
-    })
-  }
+ 
 }
