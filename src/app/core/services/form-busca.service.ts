@@ -12,6 +12,8 @@ export class FormBuscaService {
 
   constructor(private dialog: MatDialog) {
     this.formBusca = new FormGroup({
+      origem: new FormControl(''),
+      destino: new FormControl(''),
       somenteIda: new FormControl(false),
       idaEVolta: new FormControl(),
       tipo: new FormControl('Econômica'),
@@ -28,12 +30,15 @@ export class FormBuscaService {
 
     let descricao = '';
     descricao += adultos > 0 ? `${adultos} adulto${adultos > 1 ? 's' : ''}` : '';
+    descricao += criancas > 0 ? ', ' : ''; 
     descricao += criancas > 0 ? `${criancas} criança${criancas > 1 ? 's' : ''}` : '';
+    descricao += bebes > 0 ? ', ' : ''; 
     descricao += bebes > 0 ? `${bebes} bebê${bebes > 1 ? 's' : ''}` : '';
 
     return descricao;
   }
 
+  // retorna o campo do form para utilizar no componente seletor-passageiro que funciona como um campo do formulário angular
   obterControle(nome: string): FormControl {
     const control = this.formBusca.get(nome);
     if (!control) {
@@ -41,10 +46,11 @@ export class FormBuscaService {
     }
     return control as FormControl;
   }
+
   alterarTipo(evento: MatChipSelectionChange, tipo: string) {
-    if(evento.selected){
+    if (evento.selected) {
       this.formBusca.patchValue({
-        tipo
+        tipo,
       });
     }
     console.log(this.formBusca.get('tipo')?.value);
@@ -53,6 +59,16 @@ export class FormBuscaService {
   openDialog() {
     this.dialog.open(ModalComponent, {
       width: '50%',
+    });
+  }
+
+  trocarOrigemDestino(): void {
+    const origem = this.formBusca.get('origem')?.value;
+    const destino = this.formBusca.get('destino')?.value;
+
+    this.formBusca.patchValue({
+      origem: destino,
+      destino: origem,
     });
   }
 }

@@ -14,12 +14,12 @@
       </mat-button-toggle-group>
             <mat-chip (click)="formBuscaService.openDialog()">
         <div class="inner">
-          <mat-icon>check</mat-icon> 1 adulto
+          <mat-icon>check</mat-icon> {{ formBuscaService.getDescricaoPassageiros() }}
         </div>
       </mat-chip>
       <mat-chip (click)="formBuscaService.openDialog()">
         <div class="inner">
-          <mat-icon>check</mat-icon> Econômica
+          <mat-icon>check</mat-icon> {{ formBuscaService.obterControle('tipo').value }}
         </div>
       </mat-chip>
     </div>
@@ -30,7 +30,7 @@
         iconePrefixo="flight_takeoff">
       </app-dropdown-uf>
 
-      <button mat-icon-button>
+      <button mat-icon-button (click)="formBuscaService.trocarOrigemDestino()">
         <mat-icon>sync_alt</mat-icon>
       </button>
 
@@ -51,7 +51,7 @@
         <mat-datepicker-toggle matIconSuffix [for]="volta"></mat-datepicker-toggle>
         <mat-datepicker #volta></mat-datepicker>
       </mat-form-field>
-      <button mat-flat-button color="primary">BUSCAR</button>
+      <button mat-flat-button color="primary" (click)="buscar()">BUSCAR</button>
     </div>
   </form>
 </app-card>
