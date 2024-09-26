@@ -1,10 +1,10 @@
 <mat-form-field class="input-container" appearance="outline">
   <mat-label>{{ label }}</mat-label>
-  <mat-icon matPrefix> {{ iconePrefixo }} </mat-icon>
+  <mat-icon matPrefix *ngIf="iconePrefixo"> {{ iconePrefixo }} </mat-icon>
   <input matInput [matAutocomplete]="auto" [formControl]="nome"/>
   <mat-icon matSuffix>search</mat-icon>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let uf of unidadesFederativas" [value]="uf.nome">
+  <mat-autocomplete [displayWith]="displayNomeEstado" #auto="matAutocomplete">
+    <mat-option *ngFor="let uf of unidadesFederativas" [value]="uf">
       {{ uf.sigla }} - {{ uf.nome }}
     </mat-option>
   </mat-autocomplete>

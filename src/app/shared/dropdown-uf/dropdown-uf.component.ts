@@ -1,8 +1,8 @@
-import { distinctUntilChanged, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { map, switchMap, tap } from 'rxjs';
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
 import { UnidadeFederativa } from 'src/app/core/types/type';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dropdown-uf',
@@ -17,7 +17,8 @@ export class DropdownUfComponent implements OnInit {
   @Input()
   iconePrefixo!: string;
 
-  nome = new FormControl('');
+  @Input()
+  nome = new FormControl<any>(null);
 
   unidadesFederativas: UnidadeFederativa[] = [];
 
@@ -39,8 +40,13 @@ export class DropdownUfComponent implements OnInit {
   }
 
   buscaUfs(nomeUf :any) : UnidadeFederativa[] {
+    const nome = typeof nomeUf === 'string' ? nomeUf : nomeUf?.nome;
     return this.unidadesFederativas.filter(uf => {
-      uf.nome.includes(nomeUf);
+      uf.nome.toLocaleLowerCase().includes(nomeUf);
     });
+  }
+
+  displayNomeEstado(estado: UnidadeFederativa): string {
+    return estado && estado.nome ? estado.nome : '';
   }
 }
