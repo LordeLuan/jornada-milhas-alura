@@ -31,13 +31,11 @@ export class LoginComponent implements OnInit {
     this.autenticacaoService.autenticar(email, password).subscribe({
       next: (value) => {
         console.log(value);
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       },
       error: (erro) => {
         console.log(erro);
       },
     });
-    console.log('login realizado com sucesso!');
-    console.log(this.loginForm);
   }
 }

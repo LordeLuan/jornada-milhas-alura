@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
 import { PessoaUsuaria } from 'src/app/core/types/type';
@@ -12,25 +13,27 @@ export class CadastroComponent {
   
   perfilComponent = false;
 
-  constructor(private formularioService: FormularioService, private cadastroService: CadastroService){}
+  constructor(
+    private formularioService: FormularioService,
+    private cadastroService: CadastroService,
+    private router: Router
+  ) {}
 
   cadastrar() {
+    this.router;
     const form = this.formularioService.getCadastro();
     // faz um castzao para o tipo pessoaUsuaria
     const pessoaUsuaria = form?.getRawValue() as PessoaUsuaria;
 
     this.cadastroService.cadastrar(pessoaUsuaria).subscribe({
-      next(value) {
+      next: (value) => {
+        this.router.navigate(['/login']);
         console.log(value);
         alert('Usuário cadastrado!');
       },
-      error(err) {
+      error: (err) => {
         console.log(err);
       },
     });
-    console.log(form);
-    
-    console.log('Cadastro realzaodas');
-    
   }
 }
