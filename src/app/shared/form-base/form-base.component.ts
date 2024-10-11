@@ -21,8 +21,11 @@ export class FormBaseComponent implements OnInit {
     Validators.required
   );
 
+  @Input() textoBotao: string = 'Cadastrar';
+  @Input() titulo: string = 'Crie sua conta';
   @Input() perfilComponent!: boolean;
   @Output() cadastrarEvent: EventEmitter<any> = new EventEmitter();
+  @Output() sair: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private formularioService: FormularioService) {}
 
@@ -42,10 +45,22 @@ export class FormBaseComponent implements OnInit {
       aceitarTermos: [null, [Validators.requiredTrue]],
     });
 
+    if(this.perfilComponent){
+      this.cadastroForm.get('aceitarTermos')?.clearValidators();
+    }else{
+      this.cadastroForm.get('aceitarTermos')?.setValidators([Validators.requiredTrue]);
+    }
+    
+    this.cadastroForm.get('aceitarTermos')?.updateValueAndValidity();
+
     this.formularioService.setCadastro(this.cadastroForm);
   }
 
   executarAcao() {
     this.cadastrarEvent.emit();
+  }
+
+  deslogar(){
+    this.sair.emit();
   }
 }

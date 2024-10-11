@@ -1,0 +1,4 @@
+// Permitir inserir uma classe dentro do componente filho
+:host ::ng-deep .perfil-button{
+    width: 100%;
+}
