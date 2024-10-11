@@ -17,22 +17,10 @@ export class CadastroService {
   }
 
   buscarCadastro(token: string): Observable<PessoaUsuaria> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<PessoaUsuaria>(`${this.apiUrl}/auth/perfil`, {
-      headers,
-    });
+    return this.http.get<PessoaUsuaria>(`${this.apiUrl}/auth/perfil`);
   }
-  //Código omitido
 
   editarCadastro(pessoaUsuaria: PessoaUsuaria, token: string): Observable<PessoaUsuaria> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.patch<PessoaUsuaria>(`${this.apiUrl}/auth/perfil`, pessoaUsuaria, { headers }
-    );
+    return this.http.patch<PessoaUsuaria>(`${this.apiUrl}/auth/perfil`, pessoaUsuaria);
   }
 }
